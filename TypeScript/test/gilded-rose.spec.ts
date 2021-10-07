@@ -1,4 +1,5 @@
-import { Item, GildedRose } from '../app/gilded-rose';
+import {GildedRose, Item} from '../app/gilded-rose';
+import {goldenMaster} from "./golden-master-text-test";
 
 describe('Gilded Rose', function () {
 
@@ -8,4 +9,6 @@ describe('Gilded Rose', function () {
         expect(JSON.stringify(items[0])).toMatchSnapshot();
     });
 
+    it('should be verified with golden master', () =>
+        expect(goldenMaster()).toMatchSnapshot());
 });
