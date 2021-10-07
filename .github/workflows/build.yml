@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+        working-directory: ./TypeScript
+      - name: yarn install, compile and test
+        run: |
+          yarn
+          yarn compile
+          yarn test
+        working-directory: ./TypeScript
