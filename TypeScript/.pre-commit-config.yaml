@@ -1,0 +1,26 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+files: ^TypeScript/
+
+repos:
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.16.0
+    hooks:
+      - id: gitlint
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: 'v8.0.0-rc.0'  # Use the sha / tag you want to point at
+    hooks:
+      - id: eslint
+        files: \.ts$
+        types: [file]
