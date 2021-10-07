@@ -4,17 +4,19 @@ module.exports = {
     commonjs: false,
     es2021: false,
     node: true,
-    mocha: true
+    jest: true
   },
   extends: [
-    'eslint:recommended'
+    'eslint:recommended',
+    'plugin:jest/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12
   },
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'jest'
   ],
   rules: {
     'no-console': 'off'
