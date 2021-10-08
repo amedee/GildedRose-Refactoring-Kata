@@ -56,20 +56,28 @@ export class GildedRose {
                     item.quality = 0
                 }
             } else {
-                if (item.quality > 0) {
-                    if (item.name != 'Sulfuras, Hand of Ragnaros') {
-                        item.quality = item.quality - 1
-                    }
+                if (item.name == 'Sulfuras, Hand of Ragnaros') {
+                    this.foo(item);
+                } else {
+                    this.foo(item);
                 }
+            }
+        }
+    }
+
+    private foo(item: Item) {
+        if (item.quality > 0) {
+            if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                item.quality = item.quality - 1
+            }
+        }
+        if (item.name != 'Sulfuras, Hand of Ragnaros') {
+            item.sellIn = item.sellIn - 1;
+        }
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
                 if (item.name != 'Sulfuras, Hand of Ragnaros') {
-                    item.sellIn = item.sellIn - 1;
-                }
-                if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        if (item.name != 'Sulfuras, Hand of Ragnaros') {
-                            item.quality = item.quality - 1
-                        }
-                    }
+                    item.quality = item.quality - 1
                 }
             }
         }
