@@ -28,4 +28,8 @@ Conjured Mana Cake 2 5
 "
 `;
 
-exports[`Gilded Rose should foo 1`] = `"{\\"name\\":\\"foo\\",\\"sellIn\\":-1,\\"quality\\":0}"`;
+exports[`Gilded Rose should update quality 1`] = `
+Object {
+  "foo,-1,0": "{\\"name\\":\\"foo\\",\\"sellIn\\":-2,\\"quality\\":0}",
+}
+`;
