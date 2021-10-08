@@ -26,6 +26,14 @@ export class GildedRose {
     }
 
     private doUpdateQuality(item: Item) {
+        if (item.name == 'Aged Brie') {
+            this.foo(item);
+        } else {
+            this.foo(item);
+        }
+    }
+
+    private foo(item: Item) {
         if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
             if (item.quality > 0) {
                 if (item.name != 'Sulfuras, Hand of Ragnaros') {
