@@ -18,57 +18,49 @@ export class GildedRose {
     }
 
     updateQuality() {
-        this.items.forEach(item => {
-            this.doUpdateQuality(item);
-        });
+        this.items.forEach(item => this.updateState(item));
         return this.items;
     }
 
-    private doUpdateQuality(item: Item) {
+    private updateState(item: Item) {
         switch (item.name) {
             case 'Aged Brie':
-                if (item.quality < 50) {
-                    item.quality += 1
-                }
                 item.sellIn -= 1;
                 if (item.sellIn < 0) {
-                    if (item.quality < 50) {
-                        item.quality += 1
-                    }
+                    item.quality += 2;
+                } else {
+                    item.quality += 1;
                 }
                 break;
             case 'Backstage passes to a TAFKAL80ETC concert':
-                if (item.quality < 50) {
-                    item.quality += 1
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality += 1
-                        }
-                    }
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality += 1
-                        }
-                    }
-                }
                 item.sellIn -= 1;
                 if (item.sellIn < 0) {
-                    item.quality = 0
+                    item.quality = 0;
+                } else if (item.sellIn < 5) {
+                    item.quality += 3;
+                } else if (item.sellIn < 10) {
+                    item.quality += 2;
+                } else {
+                    item.quality += 1;
                 }
                 break;
             case 'Sulfuras, Hand of Ragnaros': // Nothing to do!
                 break;
             default:
-                if (item.quality > 0) {
-                    item.quality -= 1
-                }
                 item.sellIn -= 1;
                 if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        item.quality -= 1
-                    }
+                    item.quality += -2;
+                } else {
+                    item.quality += -1;
                 }
                 break;
+        }
+        this.checkQualityRange(item);
+    }
+
+    private checkQualityRange(item: Item) {
+        if (item.name != 'Sulfuras, Hand of Ragnaros') {
+            item.quality = Math.max(Math.min(item.quality, 50), 0);
         }
     }
 }
