@@ -1,3 +1,5 @@
+import {CustomItemFactory} from "./items";
+
 export class Item {
     name: string;
     sellIn: number;
@@ -11,51 +13,20 @@ export class Item {
 }
 
 export class GildedRose {
+    itemFactory: CustomItemFactory;
     items: Array<Item>;
 
     constructor(items = [] as Array<Item>) {
+        this.itemFactory = new CustomItemFactory();
         this.items = items;
     }
 
     updateQuality() {
-        this.items.forEach(item => this.updateState(item));
+        this.items.forEach(item => {
+            this.itemFactory.customiseItem(item).updateState();
+            this.checkQualityRange(item);
+        });
         return this.items;
-    }
-
-    private updateState(item: Item) {
-        switch (item.name) {
-            case 'Aged Brie':
-                item.sellIn -= 1;
-                if (item.sellIn < 0) {
-                    item.quality += 2;
-                } else {
-                    item.quality += 1;
-                }
-                break;
-            case 'Backstage passes to a TAFKAL80ETC concert':
-                item.sellIn -= 1;
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                } else if (item.sellIn < 5) {
-                    item.quality += 3;
-                } else if (item.sellIn < 10) {
-                    item.quality += 2;
-                } else {
-                    item.quality += 1;
-                }
-                break;
-            case 'Sulfuras, Hand of Ragnaros': // Nothing to do!
-                break;
-            default:
-                item.sellIn -= 1;
-                if (item.sellIn < 0) {
-                    item.quality += -2;
-                } else {
-                    item.quality += -1;
-                }
-                break;
-        }
-        this.checkQualityRange(item);
     }
 
     private checkQualityRange(item: Item) {
