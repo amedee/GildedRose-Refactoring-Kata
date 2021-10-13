@@ -75,17 +75,17 @@ export class CustomItemFactory {
     constructor() {
     }
 
-    private readonly AGED_BRIE = 'Aged Brie';
-    private readonly BACKSTAGE_PASS = 'Backstage passes to a TAFKAL80ETC concert';
-    private readonly SULFURAS = 'Sulfuras, Hand of Ragnaros';
+    private readonly AGED_BRIE = /Aged Brie/;
+    private readonly BACKSTAGE_PASS = /Backstage passes to a TAFKAL80ETC concert/;
+    private readonly SULFURAS = /Sulfuras, Hand of Ragnaros/;
 
     customiseItem(item: Item): CustomItem {
-        switch (item.name) {
-            case this.AGED_BRIE:
+        switch (true) {
+            case this.AGED_BRIE.test(item.name):
                 return new AgedBrie(item);
-            case this.BACKSTAGE_PASS:
+            case this.BACKSTAGE_PASS.test(item.name):
                 return new BackstagePass(item);
-            case this.SULFURAS:
+            case this.SULFURAS.test(item.name):
                 return new Sulfuras(item);
             default:
                 return new StandardItem(item);
