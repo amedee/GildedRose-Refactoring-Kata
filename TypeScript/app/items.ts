@@ -71,6 +71,23 @@ class StandardItem implements CustomItem {
     }
 }
 
+class ConjuredItem implements CustomItem {
+    private item: Item;
+
+    constructor(item: Item) {
+        this.item = item;
+    }
+
+    updateState(): void {
+        this.item.sellIn -= 1;
+        if (this.item.sellIn < 0) {
+            this.item.quality += -4;
+        } else {
+            this.item.quality += -2;
+        }
+    }
+}
+
 export class CustomItemFactory {
     constructor() {
     }
@@ -78,6 +95,7 @@ export class CustomItemFactory {
     private readonly AGED_BRIE = /Aged Brie/;
     private readonly BACKSTAGE_PASS = /Backstage passes to a TAFKAL80ETC concert/;
     private readonly SULFURAS = /Sulfuras, Hand of Ragnaros/;
+    private readonly CONJURED_ITEM = /Conjured/;
 
     customiseItem(item: Item): CustomItem {
         switch (true) {
@@ -87,6 +105,8 @@ export class CustomItemFactory {
                 return new BackstagePass(item);
             case this.SULFURAS.test(item.name):
                 return new Sulfuras(item);
+            case this.CONJURED_ITEM.test(item.name):
+                return new ConjuredItem(item);
             default:
                 return new StandardItem(item);
         }
